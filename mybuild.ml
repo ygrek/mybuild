@@ -2,21 +2,23 @@ open Printf
 open Ocamlbuild_plugin
 
 let bracket res destroy k =
-  match k res with
-  | exception e -> destroy res; raise e
-  | x -> destroy res; x
+  let x = try k res with e -> destroy res; raise e in
+  destroy res;
+  x
 
-let cmd cmd = bracket (Unix.open_process_in cmd) (fun ch -> ignore @@ Unix.close_process_in ch) input_line
+let cmd cmd = bracket (Unix.open_process_in cmd) (fun ch -> ignore & Unix.close_process_in ch) input_line
 
 module Version = struct
 
 let git_describe () =
   let version = cmd "git describe --long --always --dirty=+\"$(git config user.name)@$(hostname)\"" in
-  let version = String.map (function ' ' -> '.' | c -> c) version in
-  match cmd "git symbolic-ref -q --short HEAD" with
-  | exception End_of_file -> version
-  | "" | "master" -> version
-  | branch -> version^"-"^branch
+  let version = String.implode & List.map (function ' ' -> '.' | c -> c) & String.explode version in
+  try
+    match cmd "git symbolic-ref -q --short HEAD" with
+    | "" | "master" -> version
+    | branch -> version^"-"^branch
+  with
+    End_of_file -> version
 
 let save outfile =
   bracket (open_out outfile) close_out begin fun out ->
