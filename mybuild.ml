@@ -99,7 +99,8 @@ module OCaml = struct
 
 let setup () =
   flag ["ocaml";"compile";"native";"asm"] & S [A "-S"];
-  flag ["ocaml"; "link"; "toplevel"] & A"-linkpkg";
+  if !Options.use_ocamlfind then
+    flag ["ocaml"; "link"; "toplevel"] & A"-linkpkg";
   pflag ["ocaml";"link";"native"] "inline" (fun s -> S [A "-inline"; A s]);
   ()
 
