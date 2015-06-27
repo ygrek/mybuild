@@ -99,13 +99,14 @@ module OCaml = struct
 
 let setup () =
   flag ["ocaml";"compile";"native";"asm"] & S [A "-S"];
-  if !Options.use_ocamlfind then
+  if Sys.ocaml_version < "3.12.1" && !Options.use_ocamlfind then
     flag ["ocaml"; "link"; "toplevel"] & A"-linkpkg";
-  pflag ["ocaml";"link";"native"] "inline" (fun s -> S [A "-inline"; A s]);
+  if Sys.ocaml_version < "3.12.1" then
+    pflag ["ocaml";"compile";"native"] "inline" (fun s -> S [A "-inline"; A s]);
   if Sys.ocaml_version < "4.01.0" then
     pflag ["ocaml";"compile";] "warn" (fun s -> S [A "-w"; A s]);
-  pflag ["ocaml";"compile"] "runtime_variant" (fun s -> S[A"-runtime-variant";A s]);
-  pflag ["ocaml";"link"] "runtime_variant" (fun s -> S[A"-runtime-variant";A s]);
+  if Sys.ocaml_version < "4.02.2" then
+    pflag ["ocaml";"link"] "runtime_variant" (fun s -> S[A"-runtime-variant";A s]);
   ()
 
 end
