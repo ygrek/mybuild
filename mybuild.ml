@@ -102,6 +102,10 @@ let setup () =
   if !Options.use_ocamlfind then
     flag ["ocaml"; "link"; "toplevel"] & A"-linkpkg";
   pflag ["ocaml";"link";"native"] "inline" (fun s -> S [A "-inline"; A s]);
+  if Sys.ocaml_version < "4.01.0" then
+    pflag ["ocaml";"compile";] "warn" (fun s -> S [A "-w"; A s]);
+  pflag ["ocaml";"compile"] "runtime_variant" (fun s -> S[A"-runtime-variant";A s]);
+  pflag ["ocaml";"link"] "runtime_variant" (fun s -> S[A"-runtime-variant";A s]);
   ()
 
 end
