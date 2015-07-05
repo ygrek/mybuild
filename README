@@ -1,0 +1,24 @@
+Mybuild
+=======
+
+Collection of ocamlbuild plugins
+
+
+How to use
+==========
+
+Call `ocamlbuild -use-ocamlfind -plugin-tags package\(mybuild\)` (backslash escapes parentheses from shell).
+
+For OASIS-enabled projects, add
+
+  override BUILDFLAGS = "-use-ocamlfind -plugin-tags package\(mybuild\)"
+
+on top of generated Makefile (before `OASIS_START` section).
+
+Every plugin is in separate `Mybuild` submodule. Plugins should be enabled explicitely in `myocamlbuild.ml`, e.g.:
+
+  open Mybuild
+  let () =
+    Version.save "version.ml";
+    OCaml.setup ();
+    Extprot.setup ()
