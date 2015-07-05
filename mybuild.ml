@@ -20,9 +20,9 @@ let git_describe () =
   with
     End_of_file -> version
 
-let save outfile =
+let save ?(default="\"<unknown>\"") outfile =
   bracket (open_out outfile) close_out begin fun out ->
-    let revision = try git_describe () with _ -> "<unknown>" in
+    let revision = try git_describe () with _ -> default in
     Printf.fprintf out "let id = %S\n" revision
   end
 
