@@ -7,11 +7,11 @@ Collection of ocamlbuild plugins
 How to use
 ==========
 
-Call `ocamlbuild -use-ocamlfind -plugin-tags package\(mybuild\)` (backslash escapes parentheses from shell).
+Call `ocamlbuild -use-ocamlfind -plugin-tags 'package\(mybuild\)'` (backslash escapes parentheses from shell).
 
 For OASIS-enabled projects, add
 
-  override BUILDFLAGS = "-use-ocamlfind -plugin-tags package\(mybuild\)"
+  override BUILDFLAGS = "-use-ocamlfind -plugin-tags 'package\(mybuild\)'"
 
 on top of generated Makefile (before `OASIS_START` section).
 
