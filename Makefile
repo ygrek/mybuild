@@ -1,4 +1,10 @@
 
+VERSION=$(shell git describe --always --long || echo v2)
+
+ifndef VERSION
+VERSION=v2
+endif
+
 .PHONY: build clean reinstall install uninstall doc
 
 INSTALL_FILES=$(wildcard _build/*.cmx* _build/*.cmi _build/*.mli _build/*.ml _build/*.cma _build/*.cmt* _build/*.a _build/*.lib)
@@ -12,7 +18,7 @@ doc:
 		$(OCAMLBUILD) $(BUILDFLAGS) mybuild.docdir/index.html
 
 install: build
-		ocamlfind install -patch-version "$(shell git describe --always --long)" mybuild META $(INSTALL_FILES)
+		ocamlfind install -patch-version "$(VERSION:v%=%)" mybuild META $(INSTALL_FILES)
 
 uninstall:
 		ocamlfind remove mybuild
