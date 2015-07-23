@@ -7,13 +7,13 @@ Collection of ocamlbuild plugins
 How to use
 ==========
 
-Call `ocamlbuild -use-ocamlfind -plugin-tags 'package\(mybuild\)'` (backslash escapes parentheses from shell).
+For OASIS-enabled projects, add to _oasis main section:
 
-For OASIS-enabled projects, add
+  AlphaFeatures: ocamlbuild_more_args
+  OCamlVersion: >= 4.01
+  XOCamlbuildPluginTags: package(mybuild)
 
-  override BUILDFLAGS = "-use-ocamlfind -plugin-tags 'package\(mybuild\)'"
-
-on top of generated Makefile (before `OASIS_START` section).
+Otherwise arrange for `ocamlbuild` to be called with `-use-ocamlfind -plugin-tags 'package(mybuild)'` (one may need to backslash-escape parentheses).
 
 Every plugin is in separate `Mybuild` submodule. Plugins should be enabled explicitely in `myocamlbuild.ml`, e.g.:
 
