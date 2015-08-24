@@ -6,7 +6,7 @@ sig
 val git_describe : unit -> string
 
 (** Save extracted version into specified OCaml source file, as [let id = <detected version>]
-  @param default substitute for version if VCS information is not available, defaults to ["<unknown>"]
+  @param default substitute for version if VCS information is not available, will be inserted without any quoting, defaults to ["<unknown>"]
 *)
 val save : ?default:string -> string -> unit
 end

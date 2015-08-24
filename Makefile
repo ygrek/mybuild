@@ -1,5 +1,5 @@
 
-VERSION=$(shell git describe --always --long || echo v2)
+VERSION=$(shell git describe --always --long)
 
 ifndef VERSION
 VERSION=v2

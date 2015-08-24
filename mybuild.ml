@@ -22,8 +22,8 @@ let git_describe () =
 
 let save ?(default="\"<unknown>\"") outfile =
   bracket (open_out outfile) close_out begin fun out ->
-    let revision = try git_describe () with _ -> default in
-    Printf.fprintf out "let id = %S\n" revision
+    let revision = try sprintf "%S" & git_describe () with _ -> default in
+    Printf.fprintf out "let id = %s\n" revision
   end
 
 end
