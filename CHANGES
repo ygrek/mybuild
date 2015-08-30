@@ -1,0 +1,8 @@
+v3 - 2015-08-29
+* fix Version override default
+
+v2 - 2015-07-23
+* add more generic ocaml tags
+
+v1 - 2015-06-23
+* initial release with rulel for ragel, extprot and atdgen

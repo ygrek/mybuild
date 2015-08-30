@@ -2,7 +2,7 @@
 VERSION:=$(shell git describe --always --long)
 
 ifndef VERSION
-VERSION:=v2
+VERSION:=v3
 endif
 
 .PHONY: build clean reinstall install uninstall doc
