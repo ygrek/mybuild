@@ -33,6 +33,13 @@ sig
 val setup : unit -> unit
 end
 
+(** {{:http://mjambon.com/cppo.html}cppo} support *)
+module Cppo :
+sig
+(** Add tag [pp_cppo] and define OCAML_* version variables *)
+val setup : unit -> unit
+end
+
 (** Implementation of "standard" tags for the older OCaml versions *)
 module OCaml :
 sig
@@ -40,9 +47,15 @@ sig
 val setup : unit -> unit
 end
 
-(** All in one *)
-module Full :
+(** Everything at once *)
+module Everything :
 sig
 (** Enable all of the above plugins *)
+val setup : unit -> unit
+end
+
+(* = Everything *)
+module Full :
+sig
 val setup : unit -> unit
 end

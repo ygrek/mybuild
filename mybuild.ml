@@ -96,6 +96,13 @@ let setup () =
 
 end
 
+module Cppo = struct
+
+let setup () =
+  flag ["ocaml";"pp";"pp_cppo"] & S[A"cppo"; A"-V"; A (sprintf "OCAML:%s" Sys.ocaml_version)];
+
+end
+
 (** common tags for ocaml compiler *)
 module OCaml = struct
 
@@ -113,13 +120,16 @@ let setup () =
 
 end
 
-module Full = struct
+module Everything = struct
 
 let setup () =
   OCaml.setup ();
   Atdgen.setup ();
   Extprot.setup ();
   Ragel.setup ();
+  Cppo.setup ();
   ()
 
 end
+
+module Full = Everything
