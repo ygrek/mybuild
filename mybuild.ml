@@ -10,8 +10,8 @@ let cmd cmd = bracket (Unix.open_process_in cmd) (fun ch -> ignore & Unix.close_
 
 module Version = struct
 
-let git_describe () =
-  let version = cmd "git describe --long --always --dirty=+\"$(git config user.name)@$(hostname)\"" in
+let git_describe ?(dirty="+\"$(git config user.name)@$(hostname)\"") () =
+  let version = cmd ("git describe --long --always --dirty=" ^ dirty ^ "") in
   let version = String.implode & List.map (function ' ' -> '.' | c -> c) & String.explode version in
   try
     match cmd "git symbolic-ref -q --short HEAD" with
@@ -20,10 +20,12 @@ let git_describe () =
   with
     End_of_file -> version
 
-let save ?(default="\"<unknown>\"") outfile =
+let save ?(default="\"<unknown>\"") ?(identify=true) outfile =
   bracket (open_out outfile) close_out begin fun out ->
-    let revision = try sprintf "%S" & git_describe () with _ -> default in
-    Printf.fprintf out "let id = %s\n" revision
+    let revision = try sprintf "%S" & git_describe ~dirty:"+M" () with _ -> default in
+    Printf.fprintf out "let id = %s\n" revision;
+    Printf.fprintf out "let user = %S\n" (if identify then cmd "git config user.name" else "");
+    Printf.fprintf out "let host = %S\n" (if identify then Unix.gethostname () else "");
   end
 
 end

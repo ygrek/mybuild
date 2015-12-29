@@ -3,12 +3,13 @@
 (** Extract version information from VCS *)
 module Version :
 sig
-val git_describe : unit -> string
+val git_describe : ?dirty:string -> unit -> string
 
 (** Save extracted version into specified OCaml source file, as [let id = <detected version>]
   @param default substitute for version if VCS information is not available, will be inserted without any quoting, defaults to ["<unknown>"]
+  @param identify whether to include username and hostname into generated file (default: true)
 *)
-val save : ?default:string -> string -> unit
+val save : ?default:string -> ?identify:bool -> string -> unit
 end
 
 (** Rules for {{:https://github.com/mjambon/atdgen}atdgen} JSON (and biniou) serialization code generator *)
