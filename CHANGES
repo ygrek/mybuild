@@ -1,3 +1,7 @@
+v4 - 2016-01-04
+* add Cppo
+* option to include build user and host into version
+
 v3 - 2015-08-29
 * fix Version override default
 
