@@ -23,9 +23,11 @@ let git_describe ?(dirty="+\"$(git config user.name)@$(hostname)\"") () =
 let save ?(default="\"<unknown>\"") ?(identify=true) outfile =
   bracket (open_out outfile) close_out begin fun out ->
     let revision = try sprintf "%S" & git_describe ~dirty:"+M" () with _ -> default in
+    let user = if identify then try cmd "git config user.name" with _ -> try Unix.getlogin () with _ -> ""  else "" in
+    let host = if identify then try Unix.gethostname () with _ -> "" else "" in
     Printf.fprintf out "let id = %s\n" revision;
-    Printf.fprintf out "let user = %S\n" (if identify then cmd "git config user.name" else "");
-    Printf.fprintf out "let host = %S\n" (if identify then Unix.gethostname () else "");
+    Printf.fprintf out "let user = %S\n" user;
+    Printf.fprintf out "let host = %S\n" host;
   end
 
 end
