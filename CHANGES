@@ -1,3 +1,6 @@
+v5 - 2016-01-05
+* fix Version
+
 v4 - 2016-01-04
 * add Cppo
 * option to include build user and host into version
