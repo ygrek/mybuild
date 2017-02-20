@@ -10,8 +10,9 @@ let cmd cmd = bracket (Unix.open_process_in cmd) (fun ch -> ignore & Unix.close_
 
 module Version = struct
 
-let git_describe ?(dirty="+\"$(git config user.name)@$(hostname)\"") () =
-  let version = cmd ("git describe --long --always --dirty=" ^ dirty ^ "") in
+let git_describe ?git_dir ?(dirty="+\"$(git config user.name)@$(hostname)\"") () =
+  let git_dir = match git_dir with None -> "" | Some dir -> " --git-dir=" ^ Filename.quote dir in
+  let version = cmd ("git" ^ git_dir ^ " describe --long --always --dirty=" ^ Filename.quote dirty ^ "") in
   let version = String.implode & List.map (function ' ' -> '.' | c -> c) & String.explode version in
   try
     match cmd "git symbolic-ref -q --short HEAD" with
