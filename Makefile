@@ -1,5 +1,5 @@
 
-VERSION:=$(shell git describe --always --long)
+VERSION:=$(shell git --git-dir=.git describe --always --long)
 
 ifndef VERSION
 VERSION:=v5
