@@ -12,7 +12,7 @@ INSTALL_FILES=$(wildcard _build/*.cmx* _build/*.cmi _build/*.mli _build/*.ml _bu
 OCAMLBUILD=ocamlbuild -use-ocamlfind -no-links -j 0
 
 build:
-		$(OCAMLBUILD) $(BUILDFLAGS) mybuild.cma mybuild.cmxa
+		$(OCAMLBUILD) $(BUILDFLAGS) mybuild.cma mybuild.cmxa mybuild_write_version.native
 
 doc:
 		$(OCAMLBUILD) $(BUILDFLAGS) mybuild.docdir/index.html

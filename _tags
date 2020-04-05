@@ -1,1 +1,1 @@
-"mybuild.ml": package(ocamlbuild)
+true: package(ocamlbuild)

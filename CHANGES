@@ -1,3 +1,8 @@
+v6 - 2020-04-05
+* Version: allow specify git-dir
+* Version: use Sys.opaque_identity
+* mybuild_write_version binary
+
 v5 - 2016-01-05
 * fix Version
 
@@ -12,4 +17,4 @@ v2 - 2015-07-23
 * add more generic ocaml tags
 
 v1 - 2015-06-23
-* initial release with rulel for ragel, extprot and atdgen
+* initial release with rules for ragel, extprot and atdgen

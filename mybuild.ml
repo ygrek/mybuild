@@ -25,9 +25,9 @@ let ocaml_version =
   let version major minor patch rest = (major, minor, patch, rest) in
   try Some (Scanf.sscanf Sys.ocaml_version "%d.%d.%d%s@\n" version) with _ -> None
 
-let save ?(default="\"<unknown>\"") ?(identify=true) outfile =
+let save ?git_dir ?(default="\"<unknown>\"") ?(identify=true) outfile =
   bracket (open_out outfile) close_out begin fun out ->
-    let revision = try sprintf "%S" & git_describe ~dirty:"+M" () with _ -> default in
+    let revision = try sprintf "%S" & git_describe ?git_dir ~dirty:"+M" () with _ -> default in
     let user = if identify then try cmd "git config user.name" with _ -> try Unix.getlogin () with _ -> ""  else "" in
     let host = if identify then try Unix.gethostname () with _ -> "" else "" in
     let opaque =
