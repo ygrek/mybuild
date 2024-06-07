@@ -1,0 +1,9 @@
+(library
+  (public_name mybuild)
+  (libraries unix)
+  (modules mybuild))
+
+(executable
+  (public_name mybuild_write_version)
+  (libraries mybuild)
+  (modules mybuild_write_version))

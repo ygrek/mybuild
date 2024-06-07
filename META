@@ -1,7 +1,0 @@
-name="mybuild"
-version="git"
-description="collection of ocamlbuild plugins"
-requires="unix,ocamlbuild"
-archive(byte)="mybuild.cma"
-archive(native)="mybuild.cmxa"
-exists_if = "mybuild.cma"

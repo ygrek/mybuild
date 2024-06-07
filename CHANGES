@@ -1,3 +1,7 @@
+v7 - 2024-06-07
+* remove ocamlbuild plugins, only keep extraction of version from git
+* switch to dune
+
 v6 - 2020-04-05
 * Version: allow specify git-dir
 * Version: use Sys.opaque_identity
